@@ -1,0 +1,22 @@
+{% extends "hours/base.html" %}
+{% load static %}
+
+
+{% block title %} Chinese time  {% endblock %}
+{% block content %}
+    <h1>Chinese time at your location </h1>
+
+ <p> {{ chin }}  </p>
+
+<p> </p>
+
+ <p>   {{ tim }} </p>
+
+<p> It is  {{ now }} at your location now. </p>
+<p> </p>
+<form>
+  <button onclick="alert('Refresh time!')" > Refresh time!</button>
+</form>
+
+
+{% endblock %}
