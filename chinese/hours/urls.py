@@ -5,5 +5,8 @@ from . import views
 app_name = 'hours'
 
 urlpatterns = [
-    path('', views.functional_page, name='functional_page'),
+    path('', views.coordinates, name='coordinates'),
+    path('result_page/', views.result_page, name='result'),
+
+
 ]

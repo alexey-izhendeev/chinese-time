@@ -3,7 +3,7 @@ import ephem
 import datetime
 
 
-g = geocoder.ip('me')  # detects latitude and longitude with ip
+g = geocoder.ip('me')  # detects latitude and longitude with ip. Just for fast debugging here. On site it's used frontend coordinates
 now_time = datetime.datetime.now()  # ordinary time at user's location
 
 
@@ -13,18 +13,19 @@ def solartime(observer, sun=ephem.Sun()):  # returns an astronomic time
     hour_angle = observer.sidereal_time() - sun.ra
     return ephem.hours(hour_angle + ephem.hours('12:00')).norm  # norm for 24h
 
+
+
 me = ephem.Observer()
 me.lat = str(g.latlng[0])  # position latitude
 me.long = str(g.latlng[1])  # position longitude
 
 
-def positioner():  # returns user's position and astronomic time
+def positioner(lat, long):  # returns user's position and astronomic time
     iam = ephem.Observer()
-    iam.lat = str(g.latlng[0])  # position latitude
-    iam.long = str(g.latlng[1])  # position longitude
-    return f'Your position is {g.latlng[0]} latitude, {g.latlng[1]} longitude. Your astronomic time is {solartime(iam)}'
-#  print(me.lat)
-#  print(f'Your position is {g.latlng[0]} latitude, {g.latlng[1]} longitude. Your solarTIME is {solartime(me)}')
+    iam.lat = str(lat)  # position latitude
+    iam.long = str(long)  # position longitude
+    return f'Your position is {lat} latitude, {long} longitude. ' \
+           f'The astronomic time of this position is {solartime(iam)}'
 
 
 def find_hours(ephem_time):  # returns only hours (as a string) from ephem astronomic time
@@ -45,7 +46,7 @@ def solar_to_chinese(solartime):  # returns a description of an hour
                    f'The direction of the earthly branch is {chinese_time[i][4]}. \n' \
                    f'Now it is active {chinese_time[i][2]} meridian.' \
                    f'The animal of the hour is {chinese_time[i][1]}. ' \
-                   f'This chinese hour lasts {i[0]} and {i[1]} astronomic hours.'
+                   f'This chinese hour lasts {i[0]}(right part of the body) and {i[1]}(left) astronomic hours.'
 
 
 chinese_time = {  # a description of an hour
@@ -62,4 +63,9 @@ chinese_time = {  # a description of an hour
            (19, 20): ['戌', 'dog', 'pericardium', 'xu', '300°', 'earth'],
            (21, 22): ['亥', 'pig', 'triple burner', 'hai', '330°', 'water'],
            }
-solar_to_chinese(solartime(me))
+
+# print(solar_to_chinese(solartime(me)))
+# print(positioner(g.latlng[0], g.latlng[1]))
+# print(positioner(56.511079699999996, 85.0236888))
+# print(solartime(me))
+# print(me)

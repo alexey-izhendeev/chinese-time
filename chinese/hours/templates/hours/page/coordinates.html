@@ -1,0 +1,51 @@
+{% extends "hours/base.html" %}
+{% load static %}
+
+
+{% block title %} Chinese time geolocation  {% endblock %}
+{% block content %}
+<h1>Chinese time</h1>
+<p>Hi, here you can find out chinese time at your location. We get your coordinates, calculate an astronomic time and
+then show you chinese hour and its description. </p>
+
+<ol>
+    <li> Click the button to get your coordinates</li>
+    <li> Insert your coordinates into the form</li>
+    <li> Click submit</li>
+</ol>
+
+<button onclick="getLocation()">Get your coordinates</button>
+
+<p id="coord"></p>
+<div id="map"></div>
+
+<script>
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  document.getElementById('coord').innerHTML = "Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+  var link = `https://www.openstreetmap.org/#map=18/${position.coords.latitude}/${position.coords.longitude}`;
+  document.getElementById('map').innerHTML = '<a href="'+link+'" target="_blank">You can check your location on the map</a>';
+
+}
+</script>
+
+<h2> Insert coordinates </h2>
+<form action="{% url 'hours:coordinates' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+
+    <!-- <input type="text" name="task"> -->
+    <input type="submit">
+</form>
+
+
+{% endblock %}
