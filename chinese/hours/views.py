@@ -24,7 +24,7 @@ def coordinates(request):
             chin = solar_to_chinese(solartime(pos))  # chinese time
             tim = positioner(str(form.cleaned_data['lat']), str(form.cleaned_data['long']))  # position of user
             now = now_time  # ordinary time at user location
-            return render(request, 'hours/page/result_page.html', {'chin': chin, 'tim': tim, 'now': now, 'solar': solar})
+            return render(request, 'hours/page/result_page.html', {'chin': chin, 'tim': tim, 'solar': solar})
 
         else:
             return render(request, 'hours/page/coordinates.html', {

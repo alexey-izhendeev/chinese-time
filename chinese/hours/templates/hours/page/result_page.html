@@ -7,19 +7,19 @@
 
 <p> {{ chin }}  </p>
 
-
-
  <p>   {{ tim }} </p>
 
-
-
 <div id="now"> </div>
+
 <script>
- let now = new Date();
- document.getElementById('now').innerHTML = "It is  {{ now }} at your location now."
+ var now = new Date();
+ document.getElementById('now').innerHTML = "It is " + now + " at your location now.";
 
 </script>
+
+
 <p></p>
 <a href="{% url 'hours:coordinates' %}">Return to geolocation page</a>
+
 
 {% endblock %}
