@@ -4,7 +4,7 @@ import datetime
 
 
 g = geocoder.ip('me')  # detects latitude and longitude with ip. Just for fast debugging here. On site it's used frontend coordinates
-now_time = datetime.datetime.now()  # ordinary time at user's location
+now_time = datetime.datetime.now()  # ordinary time at user's location, didn't work (showed server time). Now it's used JS time on site.
 
 
 def solartime(observer, sun=ephem.Sun()):  # returns an astronomic time
@@ -46,7 +46,7 @@ def solar_to_chinese(solartime):  # returns a description of an hour
                    f'The direction of the earthly branch is {chinese_time[i][4]}. \n' \
                    f'Now it is active {chinese_time[i][2]} meridian.' \
                    f'The animal of the hour is {chinese_time[i][1]}. ' \
-                   f'This chinese hour lasts {i[0]}(right part of the body) and {i[1]}(left) astronomic hours.'
+                   f'This chinese hour lasts {i[0]} and {i[1]} astronomic hours.'
 
 
 chinese_time = {  # a description of an hour

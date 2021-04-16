@@ -34,7 +34,8 @@ function showPosition(position) {
   "<br>Longitude: " + position.coords.longitude;
   var link = `https://www.openstreetmap.org/#map=18/${position.coords.latitude}/${position.coords.longitude}`;
   document.getElementById('map').innerHTML = '<a href="'+link+'" target="_blank">You can check your location on the map</a>';
-  document.getElementByName('long').value = `position.coords.latitude`
+  document.getElementsByName('long').value = `position.coords.latitude`
+
 
 }
 </script>
@@ -42,7 +43,7 @@ function showPosition(position) {
 <h2> Insert coordinates </h2>
 <form action="{% url 'hours:coordinates' %}" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p}}
 
     <!-- <input type="text" name="task"> -->
     <input type="submit">
