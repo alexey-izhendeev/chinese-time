@@ -1,7 +1,6 @@
 {% extends "hours/base.html" %}
 {% load static %}
 
-
 {% block title %} Chinese time geolocation  {% endblock %}
 {% block content %}
 <h1>Chinese time</h1>
@@ -19,6 +18,10 @@ then show you chinese hour and its description. </p>
 <p id="coord"></p>
 <div id="map"></div>
 
+
+
+
+{% block javascript %}
 <script>
 
 function getLocation() {
@@ -30,20 +33,28 @@ function getLocation() {
 }
 
 function showPosition(position) {
+
   document.getElementById('coord').innerHTML = "Latitude: " + position.coords.latitude +
   "<br>Longitude: " + position.coords.longitude;
   var link = `https://www.openstreetmap.org/#map=18/${position.coords.latitude}/${position.coords.longitude}`;
   document.getElementById('map').innerHTML = '<a href="'+link+'" target="_blank">You can check your location on the map</a>';
-  document.getElementsByName('long').value = `position.coords.latitude`
-
-
+  document.getElementById('lat').value = position.coords.latitude;
+  document.getElementById('long').value = position.coords.longitude;
 }
+
+
 </script>
+{% endblock %}
 
 <h2> Insert coordinates </h2>
 <form action="{% url 'hours:coordinates' %}" method="post">
     {% csrf_token %}
-    {{ form.as_p}}
+    <label for="lat">Latitude: </label><br>
+    <input type="number" id="lat"  value=""{{ form.lat}} ><br>
+    <label for="long">Longitude: </label><br>
+    <input type="number" id="long"  value=""{{ form.long}}><br><br>
+
+
 
     <!-- <input type="text" name="task"> -->
     <input type="submit">
